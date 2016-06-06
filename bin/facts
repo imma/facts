@@ -9,7 +9,7 @@ function main {
   else
     export tmp_facts="$(mktemp -d -t XXXXXX)"
     trap 'rm -rf "$tmp_facts"' EXIT
-    ansible localhost -i localhost, -c local -m setup -t "$tmp_facts"
+    ansible localhost -i localhost, -c local -m setup -t "$tmp_facts" >/dev/null
     cat "$tmp_facts/localhost" | jq '.ansible_facts as $f | reduce ($f | keys[] | select(startswith("ansible_"))) as $k ({}; .[$k | ltrimstr("ansible_")] = $f[$k])' | jq -r "$@"
   fi
 }
