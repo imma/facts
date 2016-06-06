@@ -4,8 +4,9 @@ function main {
   local shome="${_facts_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   source "$shome/script/profile"
   
-  env NO_FACTS_CACHE=1 facts . > "$shome/.facts.json.$$"
-  ln -nfs "$shome/.facts.json.$$" "$shome/.facts.json"
+  local tmp_facts="$(mktemp -t XXXXXX)"
+  env NO_FACTS_CACHE=1 facts . > "$tmp_facts"
+  ln -nfs "$tmp_facts" "$shome/.facts.json"
 }
 
 source sub "$BASH_SOURCE" "$@"
