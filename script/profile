@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-function profile {
+function _facts_profile {
   local shome="${_facts_home:-"$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"}"
   PATH="$shome/bin:$shome/exec:$PATH"
 }
 
-profile
+_facts_profile
