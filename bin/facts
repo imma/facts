@@ -4,6 +4,10 @@ function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
+  if [[ "$#" == 0 ]]; then
+    set -- .
+  fi
+
   if [[ -f "$shome/.facts.json" && -z "${NO_FACTS_CACHE:-}" ]]; then
     cat "$shome/.facts.json"
   else
